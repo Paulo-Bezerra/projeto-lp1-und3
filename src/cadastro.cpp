@@ -1,5 +1,6 @@
 #include "../include/cadastro.hpp"
 #include <iostream>
+#include "../include/erros.hpp"
 
 using namespace std;
 
@@ -15,18 +16,44 @@ Professor formularioCadastrarProfessor() {
     << "╠════════════════════════╝" << endl;
   pessoa = formularioCadastrarPessoa();
   funcionario = formularioCadastrarFuncionario();
-  cout
-    << "╠══════════════╗" << endl
-    << "║ Qualificação ║" << endl
-    << "╠══════════════╝" << endl
-    << "║ Legenda: {GRADUACAO = 1, ESPECIALIZACAO = 2, MESTRADO = 3, DOUTORADO = 4}" << endl
-    << "║ Formação do(a) professor(a): ";
-  cin >> formacaoProfessor;
-  cout 
-    << "╟——————————" << endl
-    << "║ Legenda: {I = 1, II = 2, III = 3, IV = 4, V = 5, VI = 6, VII = 7, VIII = 8}" << endl
-    << "║ Nível do(a) professor(a): ";
-  cin >> nivelProfessor;
+
+  do {
+    cout
+      << "╠══════════════╗" << endl
+      << "║ Qualificação ║" << endl
+      << "╠══════════════╝" << endl
+      << "║ Legenda: {GRADUACAO = 1, ESPECIALIZACAO = 2, MESTRADO = 3, DOUTORADO = 4}" << endl
+      << "║ Formação do(a) professor(a): ";
+    cin >> formacaoProfessor;
+
+    try {
+      if (formacaoProfessor < 1 || formacaoProfessor > 4) {
+          throw ErroQualificacao("Qualificação incorreta. Digite a qualificação de acordo com a legenda, de 1 a 4\n");
+      }
+    } catch (ErroQualificacao& e) {
+      std::cout << e.what() << std::endl;
+      continue;
+    }
+    break;
+  } while (true);
+
+  do {
+    cout 
+      << "╟——————————" << endl
+      << "║ Legenda: {I = 1, II = 2, III = 3, IV = 4, V = 5, VI = 6, VII = 7, VIII = 8}" << endl
+      << "║ Nível do(a) professor(a): ";
+    cin >> nivelProfessor;
+
+    try {
+      if (nivelProfessor < 1 || nivelProfessor > 8) {
+          throw ErroNivel("Nível incorreto. Digite o nível de acordo com a legenda, de 1 a 8\n");
+      }
+    } catch (ErroNivel& e) {
+      std::cout << e.what() << std::endl;
+      continue;
+    }
+    break;
+  } while (true);
 
   Professor professor(pessoa, funcionario, formacaoProfessor, nivelProfessor);
 

@@ -36,3 +36,9 @@ program
 
 # VS Code
 .vscode
+
+# Repl.it
+.ccls-cache
+.replit
+.replit
+replit.nix
