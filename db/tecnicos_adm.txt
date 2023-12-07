@@ -1,0 +1,75 @@
+André Luiz
+666.777.888-00
+14/02/1997
+Masculino
+Rua das Flores
+15
+Jardim Primavera
+São José de Mipibu
+59.160-000
+2023000
+9000
+Contabilidade
+30
+21/11/2023
+Assistente Contábil
+Bianca Lima
+777.888.999-00
+09/11/1998
+Feminino
+Rua dos Pássaros
+20
+Jardim das Acácias
+Nísia Floresta
+59.183-000
+2023001
+10000
+Marketing
+25
+21/11/2023
+Analísta de Marketing
+Caio Souza
+888.999.000-00
+21/05/1996
+Masculino
+Rua dos Coqueiros
+25
+Jardim dos Coqueiros
+Macaíba
+59.280-000
+2023002
+11000
+Vendas
+28
+21/11/2023
+Vendedor
+Daniela Costa
+999.000.111-00
+16/08/1995
+Feminino
+Rua das Palmeiras
+30
+Jardim das Palmeiras
+São Gonçalo do Amarante
+59.290-000
+2023003
+12000
+Recursos Humanos
+27
+21/11/2023
+Analísta de Recursos Humanos
+Eduardo Santos
+000.111.222-00
+04/12/1994
+Masculino
+Rua das Mangueiras
+35
+Jardim das Mangueiras
+Ceará-Mirim
+59.570-000
+2023004
+13000
+Logística
+26
+21/11/2023
+Gerente de Logística

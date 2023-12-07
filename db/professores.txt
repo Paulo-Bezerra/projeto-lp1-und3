@@ -1,0 +1,80 @@
+Fábio Silva
+123.456.789-00
+08/03/1990
+Masculino
+Rua da Paz
+10
+Centro
+São José de Mipibu
+59.160-000
+2023100
+15000
+Matemática
+40
+21/11/2023
+1
+8
+Gisele Alves
+234.567.890-00
+12/06/1991
+Feminino
+Rua da Alegria
+15
+Jardim Primavera
+Nísia Floresta
+59.183-000
+2023101
+14000
+Português
+35
+21/11/2023
+2
+7
+Henrique Lima
+345.678.901-00
+17/09/1992
+Masculino
+Rua da Esperança
+20
+Jardim das Acácias
+Macaíba
+59.280-000
+2023102
+13000
+Programação
+30
+21/11/2023
+3
+6
+Isabela Costa
+456.789.012-00
+22/12/1993
+Feminino
+Rua da Amizade
+25
+Jardim dos Coqueiros
+São Gonçalo do Amarante
+59.290-000
+2023103
+12000
+Redes
+25
+21/11/2023
+4
+5
+João Pedro
+567.890.123-00
+27/03/1994
+Masculino
+Rua da União
+30
+Jardim das Palmeiras
+Ceará-Mirim
+59.570-000
+2023104
+11000
+Física
+20
+21/11/2023
+4
+4
