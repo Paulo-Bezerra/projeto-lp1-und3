@@ -1,5 +1,6 @@
 #include "../include/cadastro.hpp"
 #include <iostream>
+#include <algorithm>
 #include "../include/erros.hpp"
 
 using namespace std;
@@ -98,20 +99,54 @@ Pessoa formularioCadastrarPessoa() {
   cin.ignore();
   getline(cin, bufferString);
   p.setNome(bufferString);
-  cout 
-    << "╟——————————" << endl
-    << "║ CPF: ";
-  cin >> bufferString;
+
+  do {
+    cout 
+      << "╟——————————" << endl
+      << "║ CPF: ";
+    cin >> bufferString;
+    try {
+      if (bufferString.length() != 11 || !std::all_of(bufferString.begin(), bufferString.end(), ::isdigit)) {
+        throw ErroCPF("\nCPF incorreto. Digite um CPF válido com 11 dígitos numéricos\n");
+      }
+      break;
+    } catch (ErroCPF& e) {
+      std::cout << e.what() << std::endl;
+    }
+  } while (true);
   p.setCpf(bufferString);
-  cout 
-    << "╟——————————" << endl
-    << "║ Data de nascimento: ";
-  cin >> bufferString;
+
+  do {
+    cout 
+      << "╟——————————" << endl
+      << "║ Data de nascimento: ";
+    cin >> bufferString;
+    try {
+      int dia, mes, ano;
+      if (sscanf(bufferString.c_str(), "%d/%d/%d", &dia, &mes, &ano) != 3 || dia < 1 || dia > 31 || mes < 1 || mes > 12 || ano < 1900 || ano > 2005) {
+        throw ErroDataNascimento("\nData de nascimento incorreta. Digite a data de nascimento no formato DD/MM/AAAA, onde DD é o dia (01-31), MM é o mês (01-12) e AAAA é o ano (1900-2005)\n");
+      }
+      break;
+    } catch (ErroDataNascimento& e) {
+      std::cout << e.what() << std::endl;
+    }
+  } while (true);
   p.setDataNascimento(bufferString);
-  cout 
-    << "╟——————————" << endl
-    << "║ Gênero: ";
-  cin >> bufferString;
+
+  do {
+    cout 
+      << "╟——————————" << endl
+      << "║ Gênero: ";
+    cin >> bufferString;
+    try {
+      if (bufferString != "masculino" && bufferString != "feminino" && bufferString != "outros") {
+        throw ErroGenero("\nGênero incorreto. Digite 'masculino', 'feminino' ou 'outros'\n");
+      }
+      break;
+    } catch (ErroGenero& e) {
+      std::cout << e.what() << std::endl;
+    }
+  } while (true);
   p.setGenero(bufferString);
   e = formularioCadastrarEndereco();
   p.setEndereco(e.getRua(), e.getNumero(), e.getBairro(), e.getCidade(), e.getCep());
@@ -120,80 +155,150 @@ Pessoa formularioCadastrarPessoa() {
 }
 
 // Exibe o formulário para cadastra a pessoa e gera o objeto, o qual é retornado
-Endereco formularioCadastrarEndereco() {
-  Endereco e;
-  int bufferInt = 0;
-  string bufferString = "";
+      Endereco formularioCadastrarEndereco() {
+        Endereco e;
+        int bufferInt = 0;
+        string bufferString = "";
 
-  cout
-    << "╠══════════╗" << endl
-    << "║ Endereço ║" << endl
-    << "╠══════════╝" << endl
-    << "║ Rua: ";
-  cin.ignore();
-  getline(cin, bufferString);;
-  e.setRua(bufferString);
-  cout 
-    << "╟——————————" << endl
-    << "║ Número: ";
-  cin >> bufferInt;
-  e.setNumero(bufferInt);
-  cout 
-    << "╟——————————" << endl
-    << "║ Bairro: ";
-  cin.ignore();
-  getline(cin, bufferString);
-  e.setBairro(bufferString);
-  cout 
-    << "╟——————————" << endl
-    << "║ Cidade: ";
-  cin.ignore();
-  getline(cin, bufferString);
-  e.setCidade(bufferString);
-  cout 
-    << "╟——————————" << endl
-    << "║ CEP: ";
-  cin >> bufferString;
-  e.setCep(bufferString);
+        cout
+          << "╠══════════╗" << endl
+          << "║ Endereço ║" << endl
+          << "╠══════════╝" << endl
+          << "║ Rua: ";
+        cin.ignore();
+        getline(cin, bufferString);;
+        e.setRua(bufferString);
 
-  return e;
-}
+        do {
+          cout 
+            << "╟——————————" << endl
+            << "║ Número: ";
+          cin >> bufferInt;
+          try {
+            if (bufferInt < 1 || bufferInt > 99999) {
+              throw ErroNumero("\nNúmero incorreto. Digite um número válido entre 1 e 99999\n");
+            }
+            break;
+          } catch (ErroNumero& e) {
+            std::cout << e.what() << std::endl;
+          }
+        } while (true);
+        e.setNumero(bufferInt);
+
+        cout 
+          << "╟——————————" << endl
+          << "║ Bairro: ";
+        cin.ignore();
+        getline(cin, bufferString);
+        e.setBairro(bufferString);
+
+        cout 
+          << "╟——————————" << endl
+          << "║ Cidade: ";
+        cin.ignore();
+        getline(cin, bufferString);
+        e.setCidade(bufferString);
+
+        do {
+          cout 
+            << "╟——————————" << endl
+            << "║ CEP: ";
+          cin >> bufferString;
+          try {
+            if (bufferString.length() != 8 || !std::all_of(bufferString.begin(), bufferString.end(), ::isdigit)) {
+              throw ErroCEP("\nCEP incorreto. Digite um CEP válido com 8 dígitos numéricos\n");
+            }
+            break;
+          } catch (ErroCEP& e) {
+            std::cout << e.what() << std::endl;
+          }
+        } while (true);
+        e.setCep(bufferString);
+
+        return e;
+      }
 
 // Exibe o formulário para cadastra o funcinário e gera o objeto, o qual é retornado
-Funcionario formularioCadastrarFuncionario() {
-  Funcionario f;
-  int bufferInt = 0;
-  float bufferFloat = 0.0;
-  string bufferString = "";
+    Funcionario formularioCadastrarFuncionario() {
+      Funcionario f;
+      int bufferInt = 0;
+      float bufferFloat = 0.0;
+      string bufferString = "";
 
-  cout
-    << "╠══════════════════╗" << endl
-    << "║ Dados funcionais ║" << endl
-    << "╠══════════════════╝" << endl
-    << "║ Matrícula: ";
-  cin >> bufferString;
-  f.setMatricula(bufferString);
-  cout 
-    << "╟——————————" << endl
-    << "║ Salário: ";
-  cin >> bufferFloat;
-  f.setSalario(bufferFloat);
- cout 
-    << "╟——————————" << endl
-    << "║ Departamento: ";
-  cin.ignore();
-  getline(cin, bufferString);
-  f.setDepartamento(bufferString);
-  cout 
-    << "╟——————————" << endl
-    << "║ Carga horária: ";
-  cin >> bufferInt;
-  f.setCargaHoraria(bufferInt);
-  cout 
-    << "╟——————————" << endl
-    << "║ Data de ingresso: ";
-  cin >> bufferString;
-  f.setDataIngresso(bufferString);
+      cout
+        << "╠══════════════════╗" << endl
+        << "║ Dados funcionais ║" << endl
+        << "╠══════════════════╝" << endl;
 
-  return f;
-}
+      do {
+        cout << "║ Matrícula: ";
+        cin >> bufferString;
+        try {
+          if (bufferString.length() != 10 || !std::all_of(bufferString.begin(), bufferString.end(), ::isdigit)) {
+            throw ErroMatricula("\nMatrícula incorreta. Digite uma matrícula válida com 10 dígitos numéricos\n");
+          }
+          break;
+        } catch (ErroMatricula& e) {
+          std::cout << e.what() << std::endl;
+        }
+      } while (true);
+      f.setMatricula(bufferString);
+
+      do {
+        cout 
+          << "╟——————————" << endl
+          << "║ Salário: ";
+        cin >> bufferFloat;
+        try {
+          if (bufferFloat < 1320.0 || bufferFloat > 44008.52) {
+            throw ErroSalario("\nSalário incorreto. Digite um salário válido entre 1320,00 e 44.008,52\n");
+          }
+          break;
+        } catch (ErroSalario& e) {
+          std::cout << e.what() << std::endl;
+        }
+      } while (true);
+      f.setSalario(bufferFloat);
+
+      cout 
+        << "╟——————————" << endl
+        << "║ Departamento: ";
+      cin.ignore();
+      getline(cin, bufferString);
+      f.setDepartamento(bufferString);
+
+      do {
+        cout 
+          << "╟——————————" << endl
+          << "║ Carga horária: ";
+        cin >> bufferInt;
+        try {
+          if (bufferInt < 20 || bufferInt > 44) {
+            throw ErroCargaHoraria("\nCarga horária incorreta. Digite uma carga horária válida entre 20h e 44h\n");
+          }
+          break;
+        } catch (ErroCargaHoraria& e) {
+          std::cout << e.what() << std::endl;
+        }
+      } while (true);
+      f.setCargaHoraria(bufferInt);
+
+      do {
+        cout 
+          << "╟——————————" << endl
+          << "║ Data de ingresso: ";
+        cin >> bufferString;
+        try {
+          int dia, mes, ano;
+          if (sscanf(bufferString.c_str(), "%d/%d/%d", &dia, &mes, &ano) != 3 || dia < 1 || dia > 31 || mes < 1 || mes > 12 || ano < 1990 || ano > 2023) {
+            throw ErroDataIngresso("\nData de ingresso incorreta. Digite a data de ingresso no formato DD/MM/AAAA, onde DD é o dia (01-31), MM é o mês (01-12) e AAAA é o ano (1990-2023)\n");
+          }
+          break;
+        } catch (ErroDataIngresso& e) {
+          std::cout << e.what() << std::endl;
+        }
+      } while (true);
+      f.setDataIngresso(bufferString);
+
+      return f;
+    }
