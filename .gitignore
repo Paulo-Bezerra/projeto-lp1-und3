@@ -36,6 +36,7 @@ program
 
 # VS Code
 .vscode
+*.code-workspace
 
 # Repl.it
 .ccls-cache
